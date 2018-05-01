@@ -1,7 +1,5 @@
 ## Flexi
-A grid system based on the flex display property.
-
----
+A grid system based on the flex display property. 
 
 ### [Documentation](https://mpalpha.github.io/flexi/)
 
