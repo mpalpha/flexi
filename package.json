@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-clean-css": "^3.9.3",
+    "gulp-rename": "^1.2.2",
+    "gulp-sass": "^4.0.1",
+    "gulp-sourcemaps": "^2.6.4",
+    "sassdoc": "^2.5.0"
+  },
+  "name": "flexi",
+  "version": "1.0.0",
+  "description": "A flexbox based scss/css micro framework.",
+  "repository": "https://github.com/mpalpha/flexi.git",
+  "author": "Jason Lusk <jason@jasonlusk.com>",
+  "license": "MIT"
+}

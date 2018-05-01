@@ -1,0 +1,10 @@
+# Project directories
+node_modules
+
+# OS & project generated files
+*.orig
+.log
+.DS_Store?
+ehthumbs.db
+Thumbs.db
+.idea

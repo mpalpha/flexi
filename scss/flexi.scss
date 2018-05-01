@@ -1,0 +1,394 @@
+////
+/// Flexi: A flexbox based scss/css micro framework.
+/// @group API
+/// @author Jason Lusk
+////
+
+/// Namespace for the Row wrapper. 
+/// @group configuration
+/// @access public
+/// @type String
+$row-ns: "row";
+
+/// Namespace for the Column wrapper. 
+/// @group configuration
+/// @access public
+/// @type String
+$column-ns: "column";
+
+/// Namespace for the child Columns. 
+/// @group configuration
+/// @access public
+/// @type String
+$col-ns: "col";
+
+/// Container Namespace
+/// @group configuration
+/// @access public
+/// @type String
+$container-ns: "container";
+
+/// Grid Columns
+/// @group configuration
+/// @access public
+/// @type Number
+$columns: 12;
+
+/// Grid Gutters
+/// @group configuration
+/// @access public
+/// @type String
+$gutters: 1rem;
+
+/// Breakpoints
+/// @group configuration
+/// @access public
+/// @type Map
+/// @prop {Breakpoint} xs [null] - mobile first breakpoint.
+/// @prop {Breakpoint} sm [48rem (768px)] - small devices and up.
+/// @prop {Breakpoint} md [65rem (1024px)] - medium devices and up.
+/// @prop {Breakpoint} lg [75rem (1200px)] - large devices and up.
+$breakpoints: (
+  xs: null,
+  sm: 48rem,
+  md: 64rem,
+  lg: 75rem
+);
+
+/// Spacing Utility Amounts
+/// @group configuration
+/// @access public
+/// @type Map
+/// @prop {String} 0 [0] - reset to zero.
+/// @prop {String} 1 [1rem (16px)] - 1rem.
+/// @prop {String} 2 [2rem (32px)] - 1rem * 2.
+/// @prop {String} 3 [3rem (48px)] - 1rem * 3.
+/// @prop {String} 4 [4rem (64px)] - 1rem * 4.
+/// @prop {String} quarter [.25rem (4px)] - quarter of 1rem.
+/// @prop {String} half [.5rem (8px)] - half of 1rem.
+/// @prop {String} auto [auto] - auto for margins.
+$spaceamounts: (
+  0: 0,
+  1: 1,
+  2: 2,
+  3: 3,
+  4: 4,
+  quarter: 0.25,
+  half: 0.5,
+  auto: auto
+);
+
+/// Toggle Utilities true/false
+/// @group configuration
+/// @access public
+/// @type Map
+/// @prop {Boolean} align [true] - row alignment utility classes.
+/// @prop {Boolean} justify [true] - justify utility classes.
+/// @prop {Boolean} order [true] - order utility classes.
+/// @prop {Boolean} spacing [true] - spacing utility classes.
+/// @prop {Boolean} display [true] - display utility classes.
+/// @prop {Boolean} position [true] - position utility classes.
+/// @prop {Boolean} text [true] - text alignment utility classes.
+/// @prop {Boolean} visibility [true] - visibility utility classes.
+$utilities: (
+  align: true,
+  justify: true,
+  order: true,
+  spacing: true,
+  display: true,
+  position:true,
+  text: true,
+  visibility: true
+);
+
+/// Container
+/// @name .container [.full]
+/// @group layout
+/// @access public
+.#{$container-ns} {
+  margin-left: auto;
+  margin-right: auto;
+
+  &:not(.full) {
+    max-width: nth(nth($breakpoints, length($breakpoints)), 2);
+  }
+}
+
+%grid-wrappers {
+  box-sizing: border-box;
+  display: flex;
+  flex: 0 1 auto;
+  flex-wrap: wrap;
+}
+
+%row-direction {
+  flex-direction: row;
+}
+
+// rows
+.#{$row-ns} {
+  @extend %grid-wrappers;
+  @extend %row-direction;
+
+  &.grow {
+    @extend %row-direction;
+  }
+
+  &:not(.collapse) {
+    > * {
+      padding-left: $gutters;
+      padding-right: $gutters;
+    }
+  }
+}
+
+// column
+.#{$column-ns} {
+  @extend %grid-wrappers;
+  flex-direction: column;
+}
+
+// reverse
+.reverse {
+  &.#{$row-ns} {
+    flex-direction: row-reverse;
+  }
+
+  &.#{$col-ns},
+  &.#{$column-ns} {
+    flex-direction: column-reverse;
+  }
+}
+
+// column helpers
+@mixin col-offset-left($column) {
+  margin-left: 100% / $columns * $column;
+}
+
+@mixin col-offset-right($column) {
+  margin-right: 100% / $columns * $column;
+}
+
+@mixin col-numbered($column) {
+  flex-basis: 100% / $columns * $column;
+  max-width: 100% / $columns * $column;
+}
+
+@mixin row-numbered($column) {
+  flex-basis: 100% / $columns * $column;
+  max-height: 100% / $columns * $column;
+}
+
+@mixin break($breakpoint) {
+  @if $breakpoint {
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  } @else {
+    @content;
+  }
+}
+
+// build columns for each size is sizes map
+@each $size, $breakpoint in $breakpoints {
+
+  // format size variable
+  $size-formatted: if($breakpoint == null, null, "-#{$size}");
+
+  @include break($breakpoint) {
+    %col-base#{$size-formatted},
+    %row-base#{$size-formatted} {
+      align-items: stretch;
+      box-sizing: border-box;
+      flex: 0 0 auto;
+    }
+
+    %col-auto#{$size-formatted} {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-width: 100%;
+    }
+
+    %row-grow#{$size-formatted} {
+      flex-basis: 0;
+      flex-grow: 1;
+      max-height: 100%;
+    }
+
+    .#{$row-ns} {
+      &.grow#{$size-formatted} {
+        flex-direction: row;
+        @extend %row-base#{$size-formatted};
+        @extend %row-grow#{$size-formatted};
+      }
+    }
+
+    .#{$col-ns}#{$size-formatted} {
+      @extend %col-base#{$size-formatted};
+      @extend %col-auto#{$size-formatted};
+    }
+
+    @for $i from 1 through $columns {
+      .#{$col-ns}#{$size-formatted}-#{$i} {
+        @extend %col-base#{$size-formatted};
+        @include col-numbered($i);
+      }
+
+      .#{$col-ns}#{$size-formatted}-offset-#{$i} {
+        @extend %col-base#{$size-formatted};
+        @include col-offset-left($i);
+      }
+
+      .#{$col-ns}#{$size-formatted}-offset-right-#{$i} {
+        @extend %col-base#{$size-formatted};
+        @include col-offset-right($i);
+      }
+    }
+
+    // shrink utility
+    .shrink#{$size-formatted} {
+      &[class*=#{$col-ns}-],
+      &[class*=#{$col-ns}] {
+        flex: 0 0 auto;
+        width: auto;
+      }
+    }
+    // auto utility
+    .auto#{$size-formatted} {
+      &[class*=#{$col-ns}-],
+      &[class*=#{$col-ns}] {
+        flex: 1 1 0px;
+      }
+    }
+
+    // collapse utilities (required)
+    @each $name in (margin, padding) {
+      .collapse-#{$name}#{$size-formatted} {
+        > [class*=#{$col-ns}],
+        > [class*=#{$col-ns}-] {
+          #{$name}-right: 0;
+          #{$name}-left: 0;
+        }
+      }
+    }
+
+    // vertical align-items/align-self utilities
+    @if (map-get($utilities, align)) {
+      @each $name, $value in (auto: auto, stretch: stretch, baseline: baseline, top: flex-start, middle: center, bottom: flex-end) {
+        @each $type, $type-value in (items: null, self: -self) {
+          .#{$name}#{$type-value}#{$size-formatted} {
+            align-#{$type}: $value;
+          }
+        }
+      }
+    }
+
+    // horizontal justify utilities
+    @if (map-get($utilities, justify)) {
+      @each $alignment, $value in (center: center, start: flex-start, end: flex-end, around: space-around, between: space-between) {
+        .#{$alignment}#{$size-formatted} {
+          justify-content: $value;
+
+          @if ($alignment == center or $alignment == start or $alignment == end) {
+            text-align: $alignment;
+          }
+        }
+      }
+    }
+
+    // order utilities
+    @if (map-get($utilities, order)) {
+      @each $name, $value in (first: -1, last: $columns, reset: 0) {
+        .#{$name}#{$size-formatted} {
+          order: $value;
+        }
+      }
+
+      @for $order from 1 through $columns - 1 {
+        .order-#{$order}#{$size-formatted} {
+          order: $order;
+        }
+      }
+    }
+
+    // display utilities
+    @if (map-get($utilities, display)) {
+      .display {
+        @each $item in (block, inline, inline-block, flex, inline-flex, none) {
+          &-#{$item}#{$size-formatted} {
+            display: #{$item} !important;
+          }
+        }
+      }
+    }
+
+    // visibility utilities
+    @if (map-get($utilities, visibility)) {
+      .display {
+        @each $item, $value in (invisible: hidden, visible: visible) {
+          &-#{$item}#{$size-formatted} {
+            visibility: #{$value} !important;
+          }
+        }
+      }
+    }
+
+    // position utilities
+    @if (map-get($utilities, position)) {
+      .position {
+        @each $item in (relative, static, absolute, fixed) {
+          &-#{$item}#{$size-formatted} {
+            position: #{$item} !important;
+          }
+        }
+      }
+    }
+
+    // text align utilities
+    @if (map-get($utilities, text)) {
+      .text {
+        @each $item in (center, left, right) {
+          &-#{$item}#{$size-formatted} {
+            text-align: #{$item} !important;
+          }
+        }
+      }
+    }
+
+    // margin/padding utilities
+    @if (map-get($utilities, spacing)) {
+      @each $space, $value in $spaceamounts {
+        $value: if(type-of($value) == "number" and $value > 0, #{$value}rem, $value);
+
+        @each $side in (top, bottom, left, right, horizontal, vertical) {
+          @each $type in (margin, padding) {
+            @if not($value == auto and $type == padding) {
+              @if ($side == horizontal or $side == vertical) {
+                .#{$type}-#{$side}-#{$space}#{$size-formatted} {
+                  #{$type}-#{if($side==vertical,top,left)}: #{$value} !important;
+                  #{$type}-#{if($side==vertical,bottom,right)}: #{$value} !important;
+                }
+
+                @if ($size == nth(nth($breakpoints, 1), 1)) {
+                  .#{$type}-#{$side}-#{$space} {
+                    @extend .#{$type}-#{$side}-#{$space}#{$size-formatted};
+                  }
+                }
+              } @else {
+                .#{$type}-#{$side}-#{$space}#{$size-formatted} {
+                  #{$type}-#{$side}: #{$value} !important;
+                }
+
+                @if ($size == nth(nth($breakpoints, 1), 1)) {
+                  .#{$type}-#{$side}-#{$space} {
+                    @extend .#{$type}-#{$side}-#{$space}#{$size-formatted};
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
