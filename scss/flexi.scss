@@ -292,10 +292,6 @@ $utilities: (
       @each $alignment, $value in (center: center, start: flex-start, end: flex-end, around: space-around, between: space-between) {
         .#{$alignment}#{$size-formatted} {
           justify-content: $value;
-
-          @if ($alignment == center or $alignment == start or $alignment == end) {
-            text-align: $alignment;
-          }
         }
       }
     }
