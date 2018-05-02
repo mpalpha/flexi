@@ -88,6 +88,8 @@ $spaceamounts: (
 /// @prop {Boolean} spacing [true] - spacing utility classes.
 /// @prop {Boolean} display [true] - display utility classes.
 /// @prop {Boolean} position [true] - position utility classes.
+/// @prop {Boolean} sizing [true] - sizing utility classes.
+/// @prop {Boolean} min-max-sizing [true] - min/max sizing utility classes.
 /// @prop {Boolean} text [true] - text alignment utility classes.
 /// @prop {Boolean} visibility [true] - visibility utility classes.
 $utilities: (
@@ -97,6 +99,8 @@ $utilities: (
   spacing: true,
   display: true,
   position:true,
+  sizing: true,
+  min-max-sizing: true,
   text: true,
   visibility: true
 );
@@ -350,6 +354,38 @@ $utilities: (
         @each $item in (center, left, right) {
           &-#{$item}#{$size-formatted} {
             text-align: #{$item} !important;
+          }
+        }
+      }
+    }
+
+    // height/width utilities
+    @if (map-get($utilities, sizing)) {
+      @each $s in (height, width) {
+        @for $i from 0 through 100 {
+          @if ($i % 25 == 0) {
+            .#{$s} {
+              &-#{$i}#{$size-formatted} {
+                #{$s}: #{$i * 1%};
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // [min|max]-height/width utilities
+    @if (map-get($utilities, min-max-sizing)) {
+      @each $s in (height, width) {
+        @for $i from 0 through 100 {
+          @if ($i % 25 == 0) {
+            @each $m in (min, max) {
+              .#{$m}-#{$s} {
+                &-#{$i}#{$size-formatted} {
+                  #{$m}-#{$s}: #{$i * 1%};
+                }
+              }
+            }
           }
         }
       }
