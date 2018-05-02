@@ -105,6 +105,13 @@ $utilities: (
   visibility: true
 );
 
+@function dash($n: null, $a...) {
+  @each $v in $a {
+    $n: if($v, if($n, #{$n}-#{$v}, $v), $n);
+  }
+  @return #{$n};
+}
+
 /// Container
 /// @name .container [.full]
 /// @group layout
@@ -197,60 +204,60 @@ $utilities: (
 @each $size, $breakpoint in $breakpoints {
 
   // format size variable
-  $size-formatted: if($breakpoint == null, null, "-#{$size}");
+  $size: if($breakpoint == null, null, "#{$size}");
 
   @include break($breakpoint) {
-    %col-base#{$size-formatted},
-    %row-base#{$size-formatted} {
+    %#{dash(col,base,$size)},
+    %#{dash(row,base,$size)} {
       align-items: stretch;
       box-sizing: border-box;
       flex: 0 0 auto;
     }
 
-    %col-auto#{$size-formatted} {
+    %#{dash(col,auto,$size)} {
       flex-basis: 0;
       flex-grow: 1;
       max-width: 100%;
     }
 
-    %row-grow#{$size-formatted} {
+    %#{dash(row,grow,$size)} {
       flex-basis: 0;
       flex-grow: 1;
       max-height: 100%;
     }
 
     .#{$row-ns} {
-      &.grow#{$size-formatted} {
+      &.#{dash(grow, $size)} {
         flex-direction: row;
-        @extend %row-base#{$size-formatted};
-        @extend %row-grow#{$size-formatted};
+        @extend %#{dash(row-base, $size)};
+        @extend %#{dash(row-grow, $size)};
       }
     }
 
-    .#{$col-ns}#{$size-formatted} {
-      @extend %col-base#{$size-formatted};
-      @extend %col-auto#{$size-formatted};
+    .#{dash($col-ns,$size)} {
+      @extend %#{dash(col-base, $size)};
+      @extend %#{dash(col-auto, $size)};
     }
 
     @for $i from 1 through $columns {
-      .#{$col-ns}#{$size-formatted}-#{$i} {
-        @extend %col-base#{$size-formatted};
+      .#{dash($col-ns,$size,$i)} {
+        @extend %#{dash(col-base, $size)};
         @include col-numbered($i);
       }
 
-      .#{$col-ns}#{$size-formatted}-offset-#{$i} {
-        @extend %col-base#{$size-formatted};
+      .#{dash($col-ns,$size,offset,$i)} {
+        @extend %#{dash(col-base, $size)};
         @include col-offset-left($i);
       }
 
-      .#{$col-ns}#{$size-formatted}-offset-right-#{$i} {
-        @extend %col-base#{$size-formatted};
+      .#{dash($col-ns,$size,offset-right,$i)} {
+        @extend %#{dash(col-base, $size)};
         @include col-offset-right($i);
       }
     }
 
     // shrink utility
-    .shrink#{$size-formatted} {
+    .#{dash(shrink,$size)} {
       &[class*=#{$col-ns}-],
       &[class*=#{$col-ns}] {
         flex: 0 0 auto;
@@ -258,7 +265,7 @@ $utilities: (
       }
     }
     // auto utility
-    .auto#{$size-formatted} {
+    .#{dash(auto,$size)} {
       &[class*=#{$col-ns}-],
       &[class*=#{$col-ns}] {
         flex: 1 1 0px;
@@ -267,7 +274,7 @@ $utilities: (
 
     // collapse utilities (required)
     @each $name in (margin, padding) {
-      .collapse-#{$name}#{$size-formatted} {
+      .#{dash(collapse,$name,$size)} {
         > [class*=#{$col-ns}],
         > [class*=#{$col-ns}-] {
           #{$name}-right: 0;
@@ -279,8 +286,8 @@ $utilities: (
     // vertical align-items/align-self utilities
     @if (map-get($utilities, align)) {
       @each $name, $value in (auto: auto, stretch: stretch, baseline: baseline, top: flex-start, middle: center, bottom: flex-end) {
-        @each $type, $type-value in (items: null, self: -self) {
-          .#{$name}#{$type-value}#{$size-formatted} {
+        @each $type, $type-value in (items: null, self: self) {
+          .#{dash($name, $type-value, $size)} {
             align-#{$type}: $value;
           }
         }
@@ -290,7 +297,7 @@ $utilities: (
     // horizontal justify utilities
     @if (map-get($utilities, justify)) {
       @each $alignment, $value in (center: center, start: flex-start, end: flex-end, around: space-around, between: space-between) {
-        .#{$alignment}#{$size-formatted} {
+        .#{dash($alignment, $size)} {
           justify-content: $value;
         }
       }
@@ -299,13 +306,13 @@ $utilities: (
     // order utilities
     @if (map-get($utilities, order)) {
       @each $name, $value in (first: -1, last: $columns, reset: 0) {
-        .#{$name}#{$size-formatted} {
+        .#{dash($name, $size)} {
           order: $value;
         }
       }
 
       @for $order from 1 through $columns - 1 {
-        .order-#{$order}#{$size-formatted} {
+        .#{dash(order, $order, $size)} {
           order: $order;
         }
       }
@@ -313,44 +320,36 @@ $utilities: (
 
     // display utilities
     @if (map-get($utilities, display)) {
-      .display {
-        @each $item in (block, inline, inline-block, flex, inline-flex, none) {
-          &-#{$item}#{$size-formatted} {
-            display: #{$item} !important;
-          }
+      @each $item in (block, inline, inline-block, flex, inline-flex, none) {
+        .#{dash(display, $item, $size)} {
+          display: #{$item} !important;
         }
       }
     }
 
     // visibility utilities
     @if (map-get($utilities, visibility)) {
-      .display {
-        @each $item, $value in (invisible: hidden, visible: visible) {
-          &-#{$item}#{$size-formatted} {
-            visibility: #{$value} !important;
-          }
+      @each $item, $value in (invisible: hidden, visible: visible) {
+        .#{dash(display,$item,$size)} {
+          visibility: #{$value} !important;
         }
       }
     }
 
     // position utilities
     @if (map-get($utilities, position)) {
-      .position {
-        @each $item in (relative, static, absolute, fixed) {
-          &-#{$item}#{$size-formatted} {
-            position: #{$item} !important;
-          }
+      @each $item in (relative, static, absolute, fixed) {
+        .#{dash(position,$item,$size)} {
+          position: #{$item} !important;
         }
       }
     }
 
     // text align utilities
     @if (map-get($utilities, text)) {
-      .text {
-        @each $item in (center, left, right) {
-          &-#{$item}#{$size-formatted} {
-            text-align: #{$item} !important;
-          }
+      @each $item in (center, left, right) {
+        .#{dash(text,$item,$size)} {
+          text-align: #{$item} !important;
         }
       }
     }
@@ -360,10 +359,8 @@ $utilities: (
       @each $s in (height, width) {
         @for $i from 0 through 100 {
           @if ($i % 25 == 0) {
-            .#{$s} {
-              &-#{$i}#{$size-formatted} {
-                #{$s}: #{$i * 1%};
-              }
+            .#{dash($s,$i,$size)} {
+              #{$s}: #{$i * 1%};
             }
           }
         }
@@ -376,10 +373,8 @@ $utilities: (
         @for $i from 0 through 100 {
           @if ($i % 25 == 0) {
             @each $m in (min, max) {
-              .#{$m}-#{$s} {
-                &-#{$i}#{$size-formatted} {
-                  #{$m}-#{$s}: #{$i * 1%};
-                }
+              .#{dash($m,$s,$i,$size)} {
+                #{$m}-#{$s}: #{$i * 1%};
               }
             }
           }
@@ -396,24 +391,24 @@ $utilities: (
           @each $type in (margin, padding) {
             @if not($value == auto and $type == padding) {
               @if ($side == horizontal or $side == vertical) {
-                .#{$type}-#{$side}-#{$space}#{$size-formatted} {
+                .#{dash($type,$side,$space,$size)} {
                   #{$type}-#{if($side==vertical,top,left)}: #{$value} !important;
                   #{$type}-#{if($side==vertical,bottom,right)}: #{$value} !important;
                 }
 
                 @if ($size == nth(nth($breakpoints, 1), 1)) {
-                  .#{$type}-#{$side}-#{$space} {
-                    @extend .#{$type}-#{$side}-#{$space}#{$size-formatted};
+                  .#{dash($type,$side,$space)} {
+                    @extend .#{dash($type,$side,$space,$size)};
                   }
                 }
               } @else {
-                .#{$type}-#{$side}-#{$space}#{$size-formatted} {
-                  #{$type}-#{$side}: #{$value} !important;
+                .#{dash($type,$side,$space,$size)} {
+                  #{dash($type,$side)}: #{$value} !important;
                 }
 
                 @if ($size == nth(nth($breakpoints, 1), 1)) {
-                  .#{$type}-#{$side}-#{$space} {
-                    @extend .#{$type}-#{$side}-#{$space}#{$size-formatted};
+                  .#{dash($type,$side,$space)} {
+                    @extend .#{dash($type,$side,$space,$size)};
                   }
                 }
               }
