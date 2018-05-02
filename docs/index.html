@@ -15,21 +15,21 @@
             </div>
             <div class="row center">
                 <p class="hero-copy">A grid system based on the
-                    <a href="https://caniuse.com/#search=flexbox">
+                    <a href="http://caniuse.com/#search=flexbox">
                         <code class="inline-anchor">flex</code>
                     </a> display property.
                 </p>
             </div>
-            <div class="row center">
-                <a class="button invisible visible-md" href="https://github.com/mpalpha/flexi.git">GitHub</a>
+            <div class="row center text-center">
+                <a class="button" href="https://gist.github.com/mpalpha/a067d8cb102adf59c764374ea716e580">Gist</a>
             </div>
         </header>
         <div class="wrap container-fluid">
             <a name="responsive"></a>
             <section class="page-section">
                 <h2>Responsive</h2>
-                <p>Responsive modifiers enable specifying different column sizes, offsets, alignment and distribution at xs,
-                    sm, md &amp; lg viewport widths.</p>
+                <p>Responsive modifiers enable specifying different column sizes, offsets, alignment and distribution at xs, sm,
+                    md &amp; lg viewport widths.</p>
                 <dl class="margin-bottom-2">
                     <dt>
                         Child columns class examples:</dt>
@@ -77,14 +77,14 @@
                         <div class="box-row"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-12
-                col-sm-8
-                col-md-6
-                col-lg-4"&gt;
-        &lt;div class="box"&gt;Responsive&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-12
+                    col-sm-8
+                    col-md-6
+                    col-lg-4">
+            &lt;div class="box">Responsive&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="fluid"></a>
             <section class="page-section">
@@ -146,17 +146,17 @@
                 </div>
                 <pre><code>.col-6 {
     flex-basis: 50%;
-}</code></pre>
+    }</code></pre>
             </section>
             <a name="syntax"></a>
             <section class="page-section">
                 <h2>Simple Syntax</h2>
                 <p>All you need to remember is row, column, content.</p>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-12"&gt;
-        &lt;div class="box"&gt;12&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-12">
+            &lt;div class="box">12&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="wrappers"></a>
             <section class="page-section">
@@ -173,14 +173,14 @@
                         <div class="box-row"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-12
-                col-sm-8
-                col-md-6
-                col-lg-4"&gt;
-        &lt;div class="box"&gt;Responsive&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-12
+                    col-sm-8
+                    col-md-6
+                    col-lg-4">
+            &lt;div class="box">Responsive&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
                 <p>vertical .column wrapper (explicit height is required)</p>
                 <div class="column" style="height:24rem">
                     <div class="row center">
@@ -195,17 +195,17 @@
                         <div class="col">content height</div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="column" style="height:24rem"&gt;
-    &lt;div class="row center"&gt;
-        &lt;div class="col"&gt;content height&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="row center grow stretch"&gt;
-        &lt;div class="col"&gt;grow height&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="row center"&gt;
-        &lt;div class="col"&gt;content height&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="column" style="height:24rem">
+        &lt;div class="row center">
+            &lt;div class="col">content height&lt;/div>
+        &lt;/div>
+        &lt;div class="row center grow stretch">
+            &lt;div class="col">grow height&lt;/div>
+        &lt;/div>
+        &lt;div class="row center">
+            &lt;div class="col">content height&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="offsets"></a>
             <section class="page-section">
@@ -266,11 +266,11 @@
                         <div class="box-row"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-offset-3 col-9"&gt;
-        &lt;div class="box"&gt;offset&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-offset-3 col-9">
+            &lt;div class="box">offset&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="auto"></a>
             <section class="page-section">
@@ -295,11 +295,11 @@
                         <div class="box-row"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col"&gt;
-        &lt;div class="box"&gt;auto&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col">
+            &lt;div class="box">auto&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="shrink"></a>
             <section class="page-section">
@@ -324,11 +324,11 @@
                         <div class="box-row"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col shrink auto-md"&gt;
-        &lt;div class="box"&gt;shrink&lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col shrink auto-md">
+            &lt;div class="box">shrink&lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="nested"></a>
             <section class="page-section">
@@ -381,17 +381,17 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row collapse"&gt;
-    &lt;div class="col"&gt;
-        &lt;div class="box"&gt;
-            &lt;div class="row"&gt;
-                &lt;div class="col"&gt;
-                    &lt;div class="box"&gt;auto&lt;/div&gt;
-                &lt;/div&gt;
-            &lt;/div&gt;
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;</code></pre>
+                <pre><code>&lt;div class="row collapse">
+        &lt;div class="col">
+            &lt;div class="box">
+                &lt;div class="row">
+                    &lt;div class="col">
+                        &lt;div class="box">auto&lt;/div>
+                    &lt;/div>
+                &lt;/div>
+            &lt;/div>
+        &lt;/div>
+    &lt;/div></code></pre>
             </section>
             <a name="alignment"></a>
             <section class="page-section">
@@ -411,14 +411,14 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row start"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            start
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row start">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                start
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.center or .center-[sm|md|lg]</code>
                 </h3>
@@ -433,14 +433,14 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row center"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            start
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row center">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                start
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.end or .end-[sm|md|lg]</code>
                 </h3>
@@ -455,14 +455,14 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row end"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            end
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row end">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                end
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <p>Here is an example of using the modifiers in conjunction to acheive different alignment at different viewport
                     sizes. </p>
                 <div class="row">
@@ -476,14 +476,14 @@
                         </div>
                     </div>
                 </div>Example
-                <pre><code>&lt;div class="row center end-sm start-lg"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            All together now
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row center end-sm start-lg">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                All together now
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.top or .top-[sm|md|lg]</code>
                 </h3>
@@ -495,14 +495,14 @@
                         <div class="box"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row top"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            top
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row top">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                top
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.middle or .middle-[sm|md|lg]</code>
                 </h3>
@@ -514,14 +514,14 @@
                         <div class="box"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row middle"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            center
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row middle">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                center
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.bottom or .bottom-[sm|md|lg]</code>
                 </h3>
@@ -533,14 +533,14 @@
                         <div class="box"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row bottom"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            bottom
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row bottom">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                bottom
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.col* or .stretch-[sm|md|lg] (default - align-items: stretch)</code>
                 </h3>
@@ -552,14 +552,14 @@
                         <div class="box"></div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row bottom stretch-md"&gt;
-    &lt;div class="col-6"&gt;
-        &lt;div class="box"&gt;
-            xs bottom md stretch
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row bottom stretch-md">
+        &lt;div class="col-6">
+            &lt;div class="box">
+                xs bottom md stretch
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
             </section>
             <a name="distribution"></a>
             <section class="page-section">
@@ -585,24 +585,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row around"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            around
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            around
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            around
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row around">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                around
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                around
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                around
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.between or .between-[sm|md|lg]</code>
                 </h3>
@@ -623,24 +623,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row between"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            between
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            between
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            between
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row between">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                between
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                between
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                between
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
             </section>
             <a name="reordering"></a>
             <section class="page-section">
@@ -675,24 +675,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            1
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            2
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2 first"&gt;
-        &lt;div class="box"&gt;
-            3
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                1
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                2
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2 first">
+            &lt;div class="box">
+                3
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.last or .last-[sm|md|lg]</code>
                 </h3>
@@ -722,24 +722,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-2 last"&gt;
-        &lt;div class="box"&gt;
-            1
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            2
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            3
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-2 last">
+            &lt;div class="box">
+                1
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                2
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                3
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.reset or .reset-[sm|md|lg]</code>
                 </h3>
@@ -769,24 +769,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            1
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            2
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2 first reset-lg"&gt;
-        &lt;div class="box"&gt;
-            3
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                1
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                2
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2 first reset-lg">
+            &lt;div class="box">
+                3
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
                 <h3>
                     <code>.order-[#] or .order-[#]-[sm|md|lg]</code>
                 </h3>
@@ -816,24 +816,24 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            1
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            2
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2 first order-3-lg"&gt;
-        &lt;div class="box"&gt;
-            3
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                1
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                2
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2 first order-3-lg">
+            &lt;div class="box">
+                3
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
             </section>
             <a name="reversing"></a>
             <section class="page-section">
@@ -867,33 +867,33 @@
                         </div>
                     </div>
                 </div>
-                <pre><code>&lt;div class="row reverse"&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            1
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            2
-        &lt;/div&gt;
-    &lt;/div&gt;
-    &lt;div class="col-2"&gt;
-        &lt;div class="box"&gt;
-            3
-        &lt;/div&gt;
-    &lt;/div&gt;
-&lt;/div&gt;
-</code></pre>
+                <pre><code>&lt;div class="row reverse">
+        &lt;div class="col-2">
+            &lt;div class="box">
+                1
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                2
+            &lt;/div>
+        &lt;/div>
+        &lt;div class="col-2">
+            &lt;div class="box">
+                3
+            &lt;/div>
+        &lt;/div>
+    &lt;/div>
+    </code></pre>
             </section>
             <footer class="page-footer">
                 <div class="row">
-                    <div class="col start">
+                    <div class="col">
                         <a class="tag" href="https://github.com/mpalpha">
                             follow me on github
                         </a>
                     </div>
-                    <div class="col end">
+                    <div class="col text-right">
                         <a class="link-top" href="#top">⇪ back to top</a>
                     </div>
                 </div>
