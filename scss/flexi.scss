@@ -34,6 +34,12 @@ $container-ns: "container";
 /// @type Number
 $columns: 12;
 
+/// Grid Rows
+/// @group configuration
+/// @access public
+/// @type Number
+$rows: 12;
+
 /// Grid Gutters
 /// @group configuration
 /// @access public
@@ -102,7 +108,8 @@ $utilities: (
   sizing: true,
   min-max-sizing: true,
   text: true,
-  visibility: true
+  visibility: true,
+  overflow: true
 );
 
 @function dash($n: null, $a...) {
@@ -141,20 +148,18 @@ $utilities: (
   @extend %grid-wrappers;
   @extend %row-direction;
 
-  &.grow {
-    @extend %row-direction;
-  }
-
   &:not(.collapse) {
-    > * {
-      padding-left: $gutters;
-      padding-right: $gutters;
+    margin-left: -#{$gutters / 2};
+    margin-right: -#{$gutters / 2};
+    > [class^=col] {
+      padding-left: #{$gutters / 2};
+      padding-right: #{$gutters / 2};
     }
   }
 }
 
 // column
-.#{$column-ns} {
+.#{$col-ns} {
   @extend %grid-wrappers;
   flex-direction: column;
 }
@@ -165,8 +170,7 @@ $utilities: (
     flex-direction: row-reverse;
   }
 
-  &.#{$col-ns},
-  &.#{$column-ns} {
+  &.#{$col-ns} {
     flex-direction: column-reverse;
   }
 }
@@ -214,29 +218,25 @@ $utilities: (
       flex: 0 0 auto;
     }
 
-    %#{dash(col,auto,$size)} {
-      flex-basis: 0;
-      flex-grow: 1;
-      max-width: 100%;
-    }
-
-    %#{dash(row,grow,$size)} {
-      flex-basis: 0;
-      flex-grow: 1;
-      max-height: 100%;
-    }
-
-    .#{$row-ns} {
-      &.#{dash(grow, $size)} {
-        flex-direction: row;
-        @extend %#{dash(row-base, $size)};
-        @extend %#{dash(row-grow, $size)};
+    // grow and shrink
+    @each $item, $item-value in (col: width, row: height) {
+      @each $i, $v in (grow: 1, shrink: 0) {
+        .#{if($item == col, row, col)} > {
+          .#{$item} {
+            &.#{dash($i,$size)} {
+              content: $item-value;
+              @extend %#{dash(#{$item}-base, $size)};
+              flex-basis: auto;
+              flex-#{$i}: $v;
+              max-#{$item-value}: 100%;
+              #{$item-value}: auto;
+            }
+            @if not($size) and $i == grow {
+              @extend .#{dash($i,$size)};
+            }
+          }
+        }
       }
-    }
-
-    .#{dash($col-ns,$size)} {
-      @extend %#{dash(col-base, $size)};
-      @extend %#{dash(col-auto, $size)};
     }
 
     @for $i from 1 through $columns {
@@ -256,19 +256,10 @@ $utilities: (
       }
     }
 
-    // shrink utility
-    .#{dash(shrink,$size)} {
-      &[class*=#{$col-ns}-],
-      &[class*=#{$col-ns}] {
-        flex: 0 0 auto;
-        width: auto;
-      }
-    }
-    // auto utility
-    .#{dash(auto,$size)} {
-      &[class*=#{$col-ns}-],
-      &[class*=#{$col-ns}] {
-        flex: 1 1 0px;
+    @for $i from 1 through $rows {
+      .#{dash($row-ns,$size,$i)} {
+        @extend %#{dash(row-base, $size)};
+        @include row-numbered($i);
       }
     }
 
@@ -330,7 +321,7 @@ $utilities: (
     // visibility utilities
     @if (map-get($utilities, visibility)) {
       @each $item, $value in (invisible: hidden, visible: visible) {
-        .#{dash(display,$item,$size)} {
+        .#{dash(visibility,$item,$size)} {
           visibility: #{$value} !important;
         }
       }
@@ -341,6 +332,17 @@ $utilities: (
       @each $item in (relative, static, absolute, fixed) {
         .#{dash(position,$item,$size)} {
           position: #{$item} !important;
+        }
+      }
+    }
+
+    // overflow utilities
+    @if (map-get($utilities, overflow)) {
+      @each $type in (null, x, y) {
+        @each $item in (scroll, hidden, auto, visible) {
+          .#{dash(overflow,$type,$item,$size)} {
+            #{dash(overflow,$type)}: #{$item} !important;
+          }
         }
       }
     }
@@ -386,29 +388,28 @@ $utilities: (
     @if (map-get($utilities, spacing)) {
       @each $space, $value in $spaceamounts {
         $value: if(type-of($value) == "number" and $value > 0, #{$value}rem, $value);
-
-        @each $side in (top, bottom, left, right, horizontal, vertical) {
-          @each $type in (margin, padding) {
-            @if not($value == auto and $type == padding) {
-              @if ($side == horizontal or $side == vertical) {
-                .#{dash($type,$side,$space,$size)} {
-                  #{$type}-#{if($side==vertical,top,left)}: #{$value} !important;
-                  #{$type}-#{if($side==vertical,bottom,right)}: #{$value} !important;
-                }
-
-                @if ($size == nth(nth($breakpoints, 1), 1)) {
-                  .#{dash($type,$side,$space)} {
-                    @extend .#{dash($type,$side,$space,$size)};
+        @each $type in (margin, padding) {
+          @each $side in (top, right, bottom, left, horizontal, vertical) {
+            @each $neg in (null, '') {
+              @if not($value == auto and $type == padding and $neg == '') and not($space == 0 and $neg == '') {
+                @if ($side == horizontal or $side == vertical) {
+                  .#{dash($type,$side,$neg,$space,$size)} {
+                    #{$type}-#{if($side==vertical,top,left)}: #{dash($neg, $value)} !important;
+                    #{$type}-#{if($side==vertical,bottom,right)}: #{dash($neg, $value)} !important;
                   }
-                }
-              } @else {
-                .#{dash($type,$side,$space,$size)} {
-                  #{dash($type,$side)}: #{$value} !important;
-                }
-
-                @if ($size == nth(nth($breakpoints, 1), 1)) {
-                  .#{dash($type,$side,$space)} {
-                    @extend .#{dash($type,$side,$space,$size)};
+                  @if ($size == nth(nth($breakpoints, 1), 1)) {
+                    .#{dash($type,$side,$space)} {
+                      @extend .#{dash($type,$side,$neg,$space,$size)};
+                    }
+                  }
+                } @else {
+                  .#{dash($type,$side,$neg,$space,$size)} {
+                    #{dash($type,$side)}: #{dash($neg, $value)} !important;
+                  }
+                  @if ($size == nth(nth($breakpoints, 1), 1)) {
+                    .#{dash($type,$side,$neg,$space)} {
+                      @extend .#{dash($type,$side,$neg,$space,$size)};
+                    }
                   }
                 }
               }
